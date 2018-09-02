@@ -1,0 +1,12 @@
+<h1>Here is your new image</h1>
+
+<%= image_tag @url %>
+<br>
+<%= link_to "Add image", new_image_path({:url => @url})%>
+<%=link_to 'Get new image', root_path %>
+
+<h1>Here is list of all your images</h1>
+
+<% @images.each do |image| %>
+  <%= image_tag image.url %>
+<% end %>

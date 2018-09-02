@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
-  root 'users#index'
-  
-  resources :users
+  resources :images, only: [:index, :new, :create]
+  root 'images#index'
+
+  resources :users do
+    resources :favourites
+  end
 
 end
