@@ -13,6 +13,7 @@ class UsersController < ApplicationController
   end
 
   def show
+    @img = Image.find(rand(Image.all.size)+1)
   end
 
   def create

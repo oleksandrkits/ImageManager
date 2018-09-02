@@ -10,20 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_02_191929) do
+ActiveRecord::Schema.define(version: 2018_09_02_212520) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "favourites", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
 
   create_table "images", force: :cascade do |t|
     t.text "url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "images_users", force: :cascade do |t|
+    t.bigint "image_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["image_id"], name: "index_images_users_on_image_id"
+    t.index ["user_id"], name: "index_images_users_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -32,4 +36,8 @@ ActiveRecord::Schema.define(version: 2018_09_02_191929) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "favourites", "images"
+  add_foreign_key "favourites", "users"
+  add_foreign_key "images_users", "images"
+  add_foreign_key "images_users", "users"
 end

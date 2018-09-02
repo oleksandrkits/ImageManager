@@ -4,7 +4,7 @@ class FavouritesController < ApplicationController
   # GET /favourites
   # GET /favourites.json
   def index
-    @favourites = Favourite.all
+    @favourites = User.find(params['user_id']).images
   end
 
   # GET /favourites/1
@@ -14,7 +14,7 @@ class FavouritesController < ApplicationController
 
   # GET /favourites/new
   def new
-    @favourite = Favourite.new
+    @favourite = ImagesUser.new
   end
 
   # GET /favourites/1/edit
@@ -24,7 +24,7 @@ class FavouritesController < ApplicationController
   # POST /favourites
   # POST /favourites.json
   def create
-    @favourite = Favourite.new(favourite_params)
+    @favourite = ImagesUser.new(favourite_params)
 
     respond_to do |format|
       if @favourite.save
@@ -56,7 +56,7 @@ class FavouritesController < ApplicationController
   def destroy
     @favourite.destroy
     respond_to do |format|
-      format.html { redirect_to favourites_url, notice: 'Favourite was successfully destroyed.' }
+      format.html { redirect_to user_favourites_url, notice: 'Favourite was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -64,7 +64,7 @@ class FavouritesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_favourite
-      @favourite = Favourite.find(params[:id])
+      @favourite = ImagesUser.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
