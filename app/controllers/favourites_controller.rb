@@ -14,7 +14,9 @@ class FavouritesController < ApplicationController
 
   # GET /favourites/new
   def new
+    puts 'No error here'
     @favourite = ImagesUser.new
+    puts 'No error here'
   end
 
   # GET /favourites/1/edit

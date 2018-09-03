@@ -15,6 +15,12 @@ ActiveRecord::Schema.define(version: 2018_09_02_212520) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "favourites", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "url"
+  end
+
   create_table "images", force: :cascade do |t|
     t.text "url"
     t.datetime "created_at", null: false
@@ -36,8 +42,6 @@ ActiveRecord::Schema.define(version: 2018_09_02_212520) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "favourites", "images"
-  add_foreign_key "favourites", "users"
   add_foreign_key "images_users", "images"
   add_foreign_key "images_users", "users"
 end
