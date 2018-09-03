@@ -1,4 +1,13 @@
 <h1> <%= @user.name %> </h1>
+
+<h1>Here is your new image</h1>
+
+<%= image_tag @img.url %>
+<br>
+<%= link_to "Add image", new_user_favourite_path({:id => @img.id, :user_id => @user})%>
+<%=link_to 'Get new image', user_path %>
+
 <br>
 <%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Favourites', user_favourites_path(@user) %> |
 <%= link_to 'Back', users_path %>

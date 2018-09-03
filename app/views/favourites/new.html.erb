@@ -1,5 +1,13 @@
-<h1>New Favourite</h1>
+<h1>New favourite here</h1>
 
-<%= render 'form', favourite: @favourite %>
+<%= form_with(model: @favourite, local: true) do |form| %>
 
-<%= link_to 'Back', favourites_path %>
+  <div class="field">
+    <%= form.label :id %>
+    <%= form.text_field :id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

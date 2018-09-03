@@ -12,14 +12,16 @@
   <tbody>
     <% @favourites.each do |favourite| %>
       <tr>
-        <td><%= link_to 'Show', favourite %></td>
-        <td><%= link_to 'Edit', edit_favourite_path(favourite) %></td>
-        <td><%= link_to 'Destroy', favourite, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= image_tag favourite.url %></td>
+<!--        <td><%#= link_to 'Show', user_favourite_path(favourite) %></td>-->
+<!--        <td><%#= link_to 'Edit', edit_user_favourite_path(favourite) %></td>-->
+<!--        <td><%#= link_to 'Destroy', favourite, method: :delete, data: { confirm: 'Are you sure?' } %></td>-->
       </tr>
     <% end %>
   </tbody>
 </table>
-
+<%#= image_tag @images.url %>
 <br>
 
-<%= link_to 'New Favourite', new_favourite_path %>
+<%= link_to 'New Favourite', new_user_favourite_path %>
+<%= link_to 'Back', user_path(request["user_id"]) %>
