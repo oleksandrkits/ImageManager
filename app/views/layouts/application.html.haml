@@ -18,11 +18,9 @@
             %a.nav-link{:href => "/"}
               Home
               %span.sr-only (current)
-          %li.nav-item
-            = link_to 'All users', users_path, class: "nav-link"
           %li.nav-item.dropdown
             %a#navbarDropdown.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
-              Dropdown
+              Users
             .dropdown-menu{"aria-labelledby" => "navbarDropdown"}
               = link_to 'All users', users_path, class: "dropdown-item"
               = link_to 'New user', new_user_path, class: "dropdown-item"

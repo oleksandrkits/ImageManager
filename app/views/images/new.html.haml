@@ -1,11 +1,14 @@
-%h2 Add new image to database
--link
-
-= form_with(model: @image, local: true) do |form|
-  .form-inline
-    .form-group.mb-2
-      .field
-        = form.label :Image_url
-        = form.text_field :url, class: 'form-control'
-      .actions
-        = form.submit 'TEXT', class: 'btn btn-primary'
+.text-center
+  %h2 Add new kitty to database
+  =image_tag params[:url]
+  %br/
+  %br/
+  = form_with(model: @image, local: true) do |form|
+    .row
+      .col
+      .col
+        .field
+          = form.text_field :url, class: 'form-control', placeholder: 'Image url'
+        .actions
+          = form.submit 'Add', class: 'btn btn-primary'
+      .col
