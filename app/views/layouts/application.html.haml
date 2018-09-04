@@ -1,0 +1,27 @@
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title ImageManager
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+  %body
+    %nav.navbar.sticky-top.navbar-expand-lg.navbar-light.bg-info
+      %a.navbar-brand{:href => "/"}
+        = image_tag "https://www.flaticon.com/premium-icon/icons/svg/1067/1067809.svg", width: "30", height: "30"
+      %button.navbar-toggler{"aria-controls" => "navbarSupportedContent", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarSupportedContent", "data-toggle" => "collapse", :type => "button"}
+        %span.navbar-toggler-icon
+      #navbarSupportedContent.collapse.navbar-collapse
+        %ul.navbar-nav.mr-auto
+          %li.nav-item.active
+            %a.nav-link{:href => "/"}
+              Home
+              %span.sr-only (current)
+          %li.nav-item.dropdown
+            %a#navbarDropdown.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+              Users
+            .dropdown-menu{"aria-labelledby" => "navbarDropdown"}
+              = link_to 'All users', users_path, class: "dropdown-item"
+              = link_to 'New user', new_user_path, class: "dropdown-item"
+    = yield

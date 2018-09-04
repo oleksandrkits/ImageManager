@@ -1,0 +1,7 @@
+%h1 New favourite here
+= form_with(model: @favourite, url: 'ssdasd', local: true) do |form|
+  .field
+    = form.label :id
+    = form.text_field :id
+  .actions
+    = form.submit
