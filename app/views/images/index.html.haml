@@ -1,11 +1,18 @@
-%h1 Here is your new image
-= image_tag @url
+.container
+  .text-center
+    %h2 Here is your new image
+  = image_tag @url, class: "rounded mx-auto d-block"
+  .text-center
+    .row
+      .col
+        = link_to 'Add image', new_image_path({:url => @url}), class:'btn btn-primary'
+      .col
+        = link_to 'Get new image', root_path, class:'btn btn-primary'
 %br/
-= link_to 'Add image', new_image_path({:url => @url})
-= link_to 'Get new image', root_path
-= link_to 'User list', users_path
-%h1 Here is list of all your images
-- @images.each do |image|
-  = image_tag image.url, class: "img-thumbnail"
-  = link_to 'Delete', image, method: :delete, data: { confirm: 'Are you sure?' }
-  %br/
+.container
+  .row
+    - @images.each_with_index do |image, index|
+      .col-xs-6.col-md-4
+        = image_tag image.url, class: "img-thumbnail"
+        .text-center
+          = link_to 'Delete', image, method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-danger'
