@@ -30,6 +30,14 @@ class ImagesController < ApplicationController
     end
   end
 
+  def destroy
+    @image.destroy
+    respond_to do |format|
+      format.html { redirect_to images_url, notice: 'Image was successfully destroyed.' }
+      format.json { head :no_content }
+    end
+  end
+
   private
   def get_response_with_redirect(uri)
     r = Net::HTTP.get_response(uri)
@@ -41,7 +49,7 @@ class ImagesController < ApplicationController
   end
 
   def set_image
-    @user = User.find(params[:id])
+    @image = Image.find(params[:id])
   end
 
   def image_params

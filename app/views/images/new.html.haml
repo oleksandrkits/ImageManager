@@ -1,0 +1,7 @@
+%h1 New image here
+= form_with(model: @image, local: true) do |form|
+  .field
+    = form.label :url
+    = form.text_field :url
+  .actions
+    = form.submit

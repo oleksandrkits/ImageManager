@@ -1,0 +1,7 @@
+%h1 Edit user
+= form_with(model: @user, local: true) do |form|
+  .field
+    = form.label :name
+    = form.text_field :name
+  .actions
+    = form.submit
