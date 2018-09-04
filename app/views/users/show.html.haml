@@ -1,13 +1,18 @@
-%h1
-  = @user.name
-%h1 Here is your new image
-= image_tag @img.url
-%br/
-= link_to "Add image", new_user_favourite_path({:id => @img.id, :user_id => @user})
-= link_to 'Get new image', user_path
-%br/
-= link_to 'Edit', edit_user_path(@user)
-|
-= link_to 'Favourites', user_favourites_path(@user)
-|
-= link_to 'Back', users_path
+.text-center
+  %h1
+    = "Hello, #{@user.name}"
+  %h1 Here is your new image
+  = image_tag @img.url
+  %br/
+  %br/
+  = link_to 'Add image', new_user_favourite_path({:id => @img.id, :user_id => @user}), class: 'btn btn-outline-primary'
+  &emsp;
+  &emsp;
+  = link_to 'Get new image', user_path, class: 'btn btn-outline-primary'
+  %br/
+  %br/
+  = link_to 'Edit', edit_user_path(@user), class: 'btn btn-outline-primary'
+  &emsp;
+  = link_to 'Favourites', user_favourites_path(@user), class: 'btn btn-outline-primary'
+  &emsp;
+  = link_to 'Back', users_path, class: 'btn btn-outline-primary'

@@ -1,7 +1,7 @@
 .container
   .text-center
     %h2 Here is your new image
-  = image_tag @url, class: "rounded mx-auto d-block"
+  = image_tag @url, class: 'rounded mx-auto d-block'
   %br/
   .text-center
     = link_to 'Add image', new_image_path({:url => @url}), class:'btn btn-primary'
@@ -12,7 +12,7 @@
     - @images.each do |image|
       .col-sm-6.col-md-4.col-lg-3.col-xl-3
         .card.border-secondary
-          = image_tag image.url, class: "card-img-top", title: image.id
+          = image_tag image.url, class: 'card-img-top', title: image.id
           .card-body
             .text-center
               = link_to 'Delete', image, method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-danger'
