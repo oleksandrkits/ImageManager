@@ -1,11 +1,11 @@
 .text-center
-  %h1
+  %h2
     = "Hello, #{@user.name}"
-  %h1 Here is your new image
+  %h3 Here is your new image
   = image_tag @img.url
   %br/
   %br/
-  = link_to 'Add image', new_user_favourite_path({:id => @img.id, :user_id => @user}), class: 'btn btn-outline-primary'
+  = link_to 'Add to favourite', new_user_favourite_path({:id => @img.id, :user_id => @user}), class: 'btn btn-outline-primary'
   &emsp;
   &emsp;
   = link_to 'Get new image', user_path, class: 'btn btn-outline-primary'

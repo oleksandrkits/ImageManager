@@ -1,7 +1,15 @@
-%h1 New favourite here
-= form_with(model: @favourite, url: 'ssdasd', local: true) do |form|
-  .field
-    = form.label :id
-    = form.text_field :id
-  .actions
-    = form.submit
+%br/
+%br/
+%br/
+.text-center
+  %h2 Add to favourites
+  = form_for @favourite, :url => { :controller => 'favourites', :action => 'create' } do |form|
+    .row
+      .col
+      .col
+        .field
+          = form.text_field :id, class: 'form-control', placeholder: 'image id', value: params[:id]
+        %br/
+        .actions
+          = form.submit 'Add', class: 'btn btn-primary'
+      .col

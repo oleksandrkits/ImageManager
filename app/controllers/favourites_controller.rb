@@ -14,9 +14,7 @@ class FavouritesController < ApplicationController
 
   # GET /favourites/new
   def new
-    puts 'No error here'
     @favourite = ImagesUser.new
-    puts 'No error here'
   end
 
   # GET /favourites/1/edit
@@ -26,11 +24,11 @@ class FavouritesController < ApplicationController
   # POST /favourites
   # POST /favourites.json
   def create
-    @favourite = ImagesUser.new(favourite_params)
+    @favourite = ImagesUser.new({image_id: params[:images_user][:id], user_id: params[:user_id]})
 
     respond_to do |format|
       if @favourite.save
-        format.html { redirect_to @favourite }
+        format.html { redirect_to user_favourites_path }
         format.json { render :show, status: :created, location: @favourite }
       else
         format.html { render :new }
