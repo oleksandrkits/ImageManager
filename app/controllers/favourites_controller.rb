@@ -30,7 +30,7 @@ class FavouritesController < ApplicationController
 
     respond_to do |format|
       if @favourite.save
-        format.html { redirect_to @favourite, notice: 'Favourite was successfully created.' }
+        format.html { redirect_to @favourite }
         format.json { render :show, status: :created, location: @favourite }
       else
         format.html { render :new }
@@ -44,7 +44,7 @@ class FavouritesController < ApplicationController
   def update
     respond_to do |format|
       if @favourite.update(favourite_params)
-        format.html { redirect_to @favourite, notice: 'Favourite was successfully updated.' }
+        format.html { redirect_to @favourite }
         format.json { render :show, status: :ok, location: @favourite }
       else
         format.html { render :edit }
@@ -58,7 +58,7 @@ class FavouritesController < ApplicationController
   def destroy
     @favourite.destroy
     respond_to do |format|
-      format.html { redirect_to user_favourites_url, notice: 'Favourite was successfully destroyed.' }
+      format.html { redirect_to user_favourites_url }
       format.json { head :no_content }
     end
   end

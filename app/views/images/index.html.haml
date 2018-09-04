@@ -2,12 +2,10 @@
   .text-center
     %h2 Here is your new image
   = image_tag @url, class: "rounded mx-auto d-block"
-  .text-center
-    .row
-      .col
-        = link_to 'Add image', new_image_path({:url => @url}), class:'btn btn-primary'
-      .col
-        = link_to 'Get new image', root_path, class:'btn btn-primary'
+  .row
+    .text-center
+      = link_to 'Add image', new_image_path({:url => @url}), class:'btn btn-primary'
+      = link_to 'Get new image', root_path, class:'btn btn-primary'
 %br/
 .container
   .row
