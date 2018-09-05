@@ -1,0 +1,27 @@
+= form_with(model: @user, local: true) do |form|
+  .form-group.row
+    = form.label :First_name, class: 'col-2 col-form-label', :for => 'first-name-input'
+    .col-8
+      = form.text_field :first_name, class: 'form-control', id: 'first-name-input', placeholder: 'first name'
+  .form-group.row
+    = form.label :Last_name, class: 'col-2 col-form-label', :for => 'last-name-input'
+    .col-8
+      = form.text_field :last_name, class: 'form-control', id: 'last-name-input', placeholder: 'last name'
+  .form-group.row
+    = form.label :Email, class: 'col-2 col-form-label', :for => 'email-input'
+    .col-8
+      = form.email_field :email, class: 'form-control', id: 'email-input', placeholder: 'e-mail'
+  .form-group.row
+    = form.label :Sex, class: 'col-2 col-form-label', :for => 'sex-select'
+    .col-8
+      = select_tag :sex, options_for_select([['Male', 0], ['Female', 1], ['Other', 2]], 'Male'), class: 'form-control', id: 'sex-select'
+  .form-group.row
+    = form.label :Age, class: 'col-2 col-form-label', :for => 'age-input'
+    .col-8
+      = form.number_field :age, in: 0..120, class: 'form-control', id: 'age-input'
+  .form-group.row
+    = form.label :About, class: 'col-2 col-form-label', :for => 'about-text-area'
+    .col-8
+      = form.text_area :about, class: 'form-control', id: 'about-text-area', size:'1x3'
+  .actions
+    = form.submit 'Submit', class: 'btn btn-primary'
