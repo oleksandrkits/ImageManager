@@ -14,7 +14,7 @@
   .form-group.row
     = form.label :Sex, class: 'col-2 col-form-label', :for => 'sex-select'
     .col-8
-      = select_tag :sex, options_for_select([['Male', 0], ['Female', 1], ['Other', 2]], 'Male'), class: 'form-control', id: 'sex-select'
+      = form.select :sex, options_for_select(%w(male female other), 'male'), class: 'form-control', id: 'sex-select'
   .form-group.row
     = form.label :Age, class: 'col-2 col-form-label', :for => 'age-input'
     .col-8

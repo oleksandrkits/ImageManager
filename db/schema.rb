@@ -26,6 +26,12 @@ ActiveRecord::Schema.define(version: 2018_09_05_194627) do
     t.index ["user_id"], name: "index_adresses_on_user_id"
   end
 
+  create_table "favourites", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "url"
+  end
+
   create_table "images", force: :cascade do |t|
     t.text "url"
     t.datetime "created_at", null: false

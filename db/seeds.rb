@@ -17,3 +17,5 @@
       about: Faker::Lorem.paragraph
   )
 end
+
+puts '30 users created'
