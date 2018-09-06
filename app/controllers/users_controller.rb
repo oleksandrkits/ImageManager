@@ -33,6 +33,8 @@ class UsersController < ApplicationController
   end
 
   def update
+    adr = Adress.create!(adress_params)
+    @user.adress = adr
     respond_to do |format|
       if @user.update(user_params)
         format.html { redirect_to @user }

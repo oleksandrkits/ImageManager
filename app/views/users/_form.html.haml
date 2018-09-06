@@ -1,4 +1,7 @@
 = form_with(model: @user, local: true) do |form|
+  - if @user.errors.any?
+    .info
+      You can't save your form with this params
   .form-group.row
     = label_helper(form, :first_name, 'first-name-input')
     .col-8
@@ -42,3 +45,4 @@
         = adress.text_field :zip, class: 'form-control', id: 'zip-input', placeholder: 'ZIP'
   .actions
     = form.submit 'Submit', class: 'btn btn-primary'
+
