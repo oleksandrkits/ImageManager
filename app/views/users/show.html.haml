@@ -1,6 +1,6 @@
 .text-center
   %h2
-    = "Hello, #{@user.first_name}"
+    = "Hello, #{@user.first_name}. You are living on #{@user.adress.street} street"
   %h3 Here is your new image
   = image_tag @img.url
   %br/

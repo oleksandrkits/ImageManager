@@ -17,7 +17,9 @@ class UsersController < ApplicationController
   end
 
   def create
+    adr = Adress.create!(adress_params)
     @user = User.new(user_params)
+    @user.adress = adr
 
     respond_to do |format|
       if @user.save
@@ -56,6 +58,26 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :email, :age, :sex, :about)
+    params.require(:user).permit(:first_name,
+                                 :last_name,
+                                 :email,
+                                 :age,
+                                 :sex,
+                                 :about,
+                                 adress_atributes: [:city,
+                                                    :street,
+                                                    :home_number,
+                                                    :zip
+                                                   ]
+                                )
   end
+
+  def adress_params
+    params.require(:adress).permit(:city,
+                                   :street,
+                                   :home_number,
+                                   :zip
+                                  )
+  end
+
 end
