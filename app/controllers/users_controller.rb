@@ -7,9 +7,16 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+    @adress = Adress.new
   end
 
   def edit
+    if @user.adress.nil?
+      @adress = Adress.new(adress_params)
+      @user.adress = @adress
+    else
+      @adress = @user.adress
+    end
   end
 
   def show
@@ -17,9 +24,9 @@ class UsersController < ApplicationController
   end
 
   def create
-    adr = Adress.create!(adress_params)
+    @adress = Adress.new(adress_params)
     @user = User.new(user_params)
-    @user.adress = adr
+    @user.adress = @adress
 
     respond_to do |format|
       if @user.save
@@ -33,8 +40,8 @@ class UsersController < ApplicationController
   end
 
   def update
-    adr = Adress.create!(adress_params)
-    @user.adress = adr
+    @adress = @user.adress
+    @adress.update(adress_params)
     respond_to do |format|
       if @user.update(user_params)
         format.html { redirect_to @user }
@@ -47,6 +54,7 @@ class UsersController < ApplicationController
   end
 
   def destroy
+    @user.adress.destroy
     @user.destroy
     respond_to do |format|
       format.html { redirect_to users_url }

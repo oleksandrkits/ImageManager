@@ -1,7 +1,9 @@
 = form_with(model: @user, local: true) do |form|
-  - if @user.errors.any?
-    .info
-      You can't save your form with this params
+  - if user.errors.any?
+    %h2{:style => "color: red"}
+      = pluralize(user.errors.count, "error")
+      prohibited this user from being saved:
+
   .form-group.row
     = label_helper(form, :first_name, 'first-name-input')
     .col-8
@@ -26,23 +28,23 @@
     = label_helper(form, :about, 'about-text-area')
     .col-8
       = form.text_area :about, class: 'form-control', id: 'about-text-area', size:'1x3', placeholder: 'about'
-  = fields_for :adress, user.adress do |adress|
+  = fields_for :adress, user.adress do |address|
     .form-group.row
-      = label_helper(adress, :city, 'city-input')
+      = label_helper(address, :city, 'city-input')
       .col-8
-        = adress.text_field :city, class: 'form-control', id: 'city-input', placeholder: 'city'
+        = address.text_field :city, class: 'form-control', id: 'city-input', placeholder: 'city'
     .form-group.row
-      = label_helper(adress, :street, 'street-input')
+      = label_helper(address, :street, 'street-input')
       .col-8
-        = adress.text_field :street, class: 'form-control', id: 'street-input', placeholder: 'street'
+        = address.text_field :street, class: 'form-control', id: 'street-input', placeholder: 'street'
     .form-group.row
-      = label_helper(adress, :home_number, 'home-number-input')
+      = label_helper(address, :home_number, 'home-number-input')
       .col-8
-        = adress.text_field :home_number, class: 'form-control', id: 'home-number-input', placeholder: 'home number'
+        = address.text_field :home_number, class: 'form-control', id: 'home-number-input', placeholder: 'home number'
     .form-group.row
-      = label_helper(adress, :zip, 'zip-input')
+      = label_helper(address, :zip, 'zip-input')
       .col-8
-        = adress.text_field :zip, class: 'form-control', id: 'zip-input', placeholder: 'ZIP'
+        = address.text_field :zip, class: 'form-control', id: 'zip-input', placeholder: 'ZIP'
   .actions
     = form.submit 'Submit', class: 'btn btn-primary'
 
