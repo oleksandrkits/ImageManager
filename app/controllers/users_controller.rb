@@ -11,12 +11,6 @@ class UsersController < ApplicationController
   end
 
   def edit
-    if @user.adress.nil?
-      @adress = Adress.new(adress_params)
-      @user.adress = @adress
-    else
-      @adress = @user.adress
-    end
   end
 
   def show
@@ -40,8 +34,13 @@ class UsersController < ApplicationController
   end
 
   def update
-    @adress = @user.adress
-    @adress.update(adress_params)
+    if @user.adress.nil?
+      @adress = Adress.new(adress_params)
+      @user.adress = @adress
+    else
+      @adress = @user.adress
+      @adress.update(adress_params)
+    end
     respond_to do |format|
       if @user.update(user_params)
         format.html { redirect_to @user }
