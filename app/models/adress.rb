@@ -5,5 +5,5 @@ class Adress < ApplicationRecord
                             message:'Enter proper zip code'
                           }, allow_blank: true
   validates :city, length: {maximum: 100}
-  validates :home_number, length: {maximum: 5000}
+  validates :home_number, numericality: {greater_than:0, less_than_or_equal_to: 5000}
 end
