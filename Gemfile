@@ -58,3 +58,4 @@ gem 'faker'
 gem 'bootstrap'
 gem 'jquery-rails'
 gem 'haml-rails', "~> 1.0"
+gem 'devise'
