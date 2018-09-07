@@ -4,18 +4,4 @@
 .text-center
   %h2 Edit user
   %br/
-  = form_with(model: @user, local: true) do |form|
-    .row
-      .col
-      .col
-        .field
-          = form.label :user_name
-          = form.text_field :name, class: 'form-control', placeholder: 'username'
-          %br/
-        .field
-          = form.label :email
-          = form.email_field :email, class: 'form-control', placeholder: 'e-mail'
-          %br/
-        .actions
-          = form.submit 'Edit', class: 'btn btn-primary'
-      .col
+  = render 'form', user: @user

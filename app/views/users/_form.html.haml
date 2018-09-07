@@ -1,0 +1,50 @@
+= form_with(model: @user, local: true) do |form|
+  - if user.errors.any?
+    %h2{:style => "color: red"}
+      = pluralize(user.errors.count, "error")
+      prohibited this user from being saved:
+
+  .form-group.row
+    = label_helper(form, :first_name, 'first-name-input')
+    .col-8
+      = form.text_field :first_name, class: 'form-control', id: 'first-name-input', placeholder: 'first name'
+  .form-group.row
+    = label_helper(form, :last_name, 'last-name-input')
+    .col-8
+      = form.text_field :last_name, class: 'form-control', id: 'last-name-input', placeholder: 'last name'
+  .form-group.row
+    = label_helper(form, :email, 'email-input')
+    .col-8
+      = form.email_field :email, class: 'form-control', id: 'email-input', placeholder: 'e-mail'
+  .form-group.row
+    = label_helper(form, :sex, 'sex-select')
+    .col-8
+      = form.select :sex, options_for_select(%w(male female other), 'male'), {}, { :class => 'form-control', :id => 'sex-select'}
+  .form-group.row
+    = label_helper(form, :age, 'age-input')
+    .col-8
+      = form.number_field :age, in: 0..120, class: 'form-control', id: 'age-input', placeholder: 'age'
+  .form-group.row
+    = label_helper(form, :about, 'about-text-area')
+    .col-8
+      = form.text_area :about, class: 'form-control', id: 'about-text-area', size:'1x3', placeholder: 'about'
+  = fields_for :adress, user.adress do |address|
+    .form-group.row
+      = label_helper(address, :city, 'city-input')
+      .col-8
+        = address.text_field :city, class: 'form-control', id: 'city-input', placeholder: 'city'
+    .form-group.row
+      = label_helper(address, :street, 'street-input')
+      .col-8
+        = address.text_field :street, class: 'form-control', id: 'street-input', placeholder: 'street'
+    .form-group.row
+      = label_helper(address, :home_number, 'home-number-input')
+      .col-8
+        = address.text_field :home_number, class: 'form-control', id: 'home-number-input', placeholder: 'home number'
+    .form-group.row
+      = label_helper(address, :zip, 'zip-input')
+      .col-8
+        = address.text_field :zip, class: 'form-control', id: 'zip-input', placeholder: 'ZIP'
+  .actions
+    = form.submit 'Submit', class: 'btn btn-primary'
+
