@@ -8,5 +8,5 @@ class Adress < ApplicationRecord
   validates :city, length: { maximum: 100 }
   validates :home_number, numericality: { greater_than:0,
                                           less_than_or_equal_to: 5000
-                                        }
+                                        }, allow_blank: true
 end

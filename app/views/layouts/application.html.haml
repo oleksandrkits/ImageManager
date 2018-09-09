@@ -18,21 +18,13 @@
             %a.nav-link{:href => "/"}
               Home
               %span.sr-only (current)
-          %li.nav-item
-            %a.nav-link{:href => "/register"}
-              Register
-          %li.nav-item
-            %a.nav-link{:href => "/login"}
-              Login
-          %li.nav-item
-            =link_to 'Logout', destroy_user_session_path, method: :delete, class: 'nav-link'
           %li.nav-item.dropdown
             %a#navbarDropdown.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
               Users
             .dropdown-menu{"aria-labelledby" => "navbarDropdown"}
               = link_to 'All users', users_path, class: "dropdown-item"
               = link_to 'New user', new_user_path, class: "dropdown-item"
-
+        = render 'layouts/navbar_login'
     %p.notice= notice
     %p.alert= alert
     = yield
