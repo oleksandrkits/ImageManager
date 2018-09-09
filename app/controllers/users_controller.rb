@@ -7,7 +7,7 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
-    @adress = Adress.new
+    @user.adress = Adress.new
   end
 
   def edit
@@ -18,9 +18,7 @@ class UsersController < ApplicationController
   end
 
   def create
-    @adress = Adress.new(adress_params)
     @user = User.new(user_params)
-    @user.adress = @adress
 
     respond_to do |format|
       if @user.save
@@ -34,13 +32,6 @@ class UsersController < ApplicationController
   end
 
   def update
-    if @user.adress.nil?
-      @adress = Adress.new(adress_params)
-      @user.adress = @adress
-    else
-      @adress = @user.adress
-      @adress.update(adress_params)
-    end
     respond_to do |format|
       if @user.update(user_params)
         format.html { redirect_to @user }
@@ -53,7 +44,6 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user.adress.destroy
     @user.destroy
     respond_to do |format|
       format.html { redirect_to users_url }
@@ -73,20 +63,13 @@ class UsersController < ApplicationController
                                  :age,
                                  :sex,
                                  :about,
-                                 adress_atributes: [:city,
-                                                    :street,
-                                                    :home_number,
-                                                    :zip
-                                                   ]
+                                 :password,
+                                 :password_confirmation,
+                                 adress_attributes: [:city,
+                                                     :street,
+                                                     :home_number,
+                                                     :zip
+                                 ]
                                 )
   end
-
-  def adress_params
-    params.require(:adress).permit(:city,
-                                   :street,
-                                   :home_number,
-                                   :zip
-                                  )
-  end
-
 end
