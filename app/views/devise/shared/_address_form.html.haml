@@ -1,7 +1,4 @@
-= puts '*' * 100
-= puts resource.inspect
-= puts '*' * 100
-= fields_for :adress, resource.adress do |address|
+= form.fields_for :adress do |address|
   .form-group.row
     = label_helper(address, :city, 'city-input')
     .col-8
