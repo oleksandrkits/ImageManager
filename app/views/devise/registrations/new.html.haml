@@ -1,45 +1,7 @@
 .text-center
-  %h2 Sign up
+  %h2 Register
   %br/
 
-  = form_for(resource, as: resource_name, url: user_registration_path(resource_name)) do |form|
-    = devise_error_messages!
-    .form-group.row
-      = label_helper(form, :first_name, 'first-name-input')
-      .col-8
-        = form.text_field :first_name, class: 'form-control', id: 'first-name-input', placeholder: 'first name'
-    .form-group.row
-      = label_helper(form, :last_name, 'last-name-input')
-      .col-8
-        = form.text_field :last_name, class: 'form-control', id: 'last-name-input', placeholder: 'last name'
-    .form-group.row
-      = label_helper(form, :email, 'email-input')
-      .col-8
-        = form.email_field :email, class: 'form-control', id: 'email-input', placeholder: 'e-mail'
-    .form-group.row
-      = label_helper(form, :sex, 'sex-select')
-      .col-8
-        = form.select :sex, options_for_select(%w(male female other), 'male'), {}, { :class => 'form-control', :id => 'sex-select'}
-    .form-group.row
-      = label_helper(form, :age, 'age-input')
-      .col-8
-        = form.number_field :age, in: 0..120, class: 'form-control', id: 'age-input', placeholder: 'age'
-    .form-group.row
-      = label_helper(form, :about, 'about-text-area')
-      .col-8
-        = form.text_area :about, class: 'form-control', id: 'about-text-area', size:'1x3', placeholder: 'about'
-    = render partial: 'devise/shared/address_form', locals: {form: form}
-    .form-group.row
-      = label_helper(form, :password, 'password-input')
-      .col-8
-        = form.password_field :password, autocomplete: 'new-password', id: 'password-input', class: 'form-control'
-    .form-group.row
-      = label_helper(form, :password_confirmation, 'password-confirmation-input')
-      .col-8
-        = form.password_field :password_confirmation, autocomplete: 'new-password', id: 'password-confirmation-input', class: 'form-control'
-
-    .actions
-      = form.submit 'Register', class: 'btn btn-primary'
-
+  = render partial: 'user_form', locals: {type: 'new'}
 
   = render 'devise/shared/links'
