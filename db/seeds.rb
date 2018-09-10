@@ -7,15 +7,24 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 #
 #
-30.times do
-  User.create!(
+100.times do
+  usr = User.create(
       first_name: Faker::Name.first_name,
       last_name: Faker::Name.last_name,
       email: Faker::Internet.email,
       sex: rand(0..2),
       age: rand(1..120),
-      about: Faker::Lorem.paragraph
+      about: Faker::Lorem.paragraph,
+      password: '123456'
+      )
+  usr.save!
+  Adress.create!(
+      city: Faker::Address.city,
+      street: Faker::Address.street_name,
+      home_number: rand(5000),
+      zip: '49000',
+      user_id: usr.id
   )
 end
 
-puts '30 users created'
+puts '100 users created'
