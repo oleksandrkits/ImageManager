@@ -1,23 +1,6 @@
-.text-center
-  %h1 Users
-%br/
-.container
-  .row.no-gutters
-    .col-12.col-sm-6.col-md-8.col-12.col-sm-6.col-md-8
-      .container
-        .row
-          - @users.each do |user|
-            .col-sm-6.col-md-4.col-lg-3.col-xl-3
-              .card.border-secondary
-                .card-body
-                  %h5.card-title
-                    = link_to "#{user.first_name}", user
-                  %h6.card-subtitle.mb-2.text-muted
-                    = user.email
-                  = link_to 'Edit', edit_user_path(user), class:'btn btn-primary'
-                  = link_to 'Delete', user, method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-danger'
-
-    .col-6.col-md-4.col-6.col-md-4
+.container-fluid
+  .row.flex-xl-nowrap
+    .col-12.col-md-3.col-xl-2.bd-sidebar
       %ul
         %li
           User count:
@@ -40,4 +23,30 @@
         %li
           Oldest user:
           = get_oldest_user
+    .col-12.col-sm-6.col-md-8.col-12.col-sm-6.col-md-8
+      %h1.bd-title Users
+      %table.table
+        %thead
+          %tr
+            %th{:scope => "col"} id
+            %th{:scope => "col"} First name
+            %th{:scope => "col"} Last name
+            %th{:scope => "col"} Email
+            %th{:scope => "col"} sex
+            %th{:scope => "col"} age
+        %tbody
+          - @users.each do |user|
+            %tr
+              %th{scope: 'row'}
+                =user.id
+              %td
+                =user.first_name
+              %td
+                =user.last_name
+              %td
+                =user.email
+              %td
+                =user.sex
+              %td
+                =user.age
 

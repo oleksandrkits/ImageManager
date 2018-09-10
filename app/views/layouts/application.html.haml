@@ -7,7 +7,7 @@
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   %body
-    %nav.navbar.sticky-top.navbar-expand-lg.navbar-light.bg-info
+    %header.navbar.sticky-top.navbar-expand.navbar-light.flex-column.flex-md-row.bd-navbar.bg-info
       %a.navbar-brand{:href => "/"}
         = image_tag "https://www.flaticon.com/premium-icon/icons/svg/1067/1067809.svg", width: "30", height: "30"
       %button.navbar-toggler{"aria-controls" => "navbarSupportedContent", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarSupportedContent", "data-toggle" => "collapse", :type => "button"}
