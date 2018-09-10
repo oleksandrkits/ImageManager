@@ -1,3 +1,12 @@
+= form_tag({}, {:method => :get}) do
+  = select_tag :sort_by, options_for_select({ '': '',
+                                              'None': 'none',
+                                              'Age': :age,
+                                              'City': :city,
+                                              'First name': :first_name,
+                                              'Last name': :last_name  }),
+                                               :onchange => "this.form.submit();"
+
 .container-fluid
   .row.flex-xl-nowrap
     .col-12.col-md-3.col-xl-2.bd-sidebar
@@ -34,11 +43,14 @@
             %th{:scope => "col"} Email
             %th{:scope => "col"} sex
             %th{:scope => "col"} age
+            %th{:scope => "col"} city
+            %th{:scope => "col"} edit
+            %th{:scope => "col"} delete
         %tbody
           - @users.each do |user|
             %tr
               %th{scope: 'row'}
-                =user.id
+                = link_to user.id, user_path(user)
               %td
                 =user.first_name
               %td
@@ -49,4 +61,9 @@
                 =user.sex
               %td
                 =user.age
-
+              %td
+                =user.adress.city
+              %td
+                = link_to 'Edit', edit_user_path(user), class:'btn btn-primary'
+              %td
+                = link_to 'Delete', user, method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-danger'

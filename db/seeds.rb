@@ -27,4 +27,23 @@
   )
 end
 
+usr = User.create(
+    first_name: 'Oleksandr',
+    last_name: 'Kitsera',
+    email: 'sk@mail.com',
+    sex: 0,
+    age: 21,
+    about: 'Programmer from Ukraine.',
+    password: '123456',
+    is_admin: true
+)
+usr.save!
+Adress.create!(
+    city: 'Lviv',
+    street: 'Franka',
+    home_number: 163,
+    zip: '47000',
+    user_id: usr.id
+)
+
 puts '100 users created'

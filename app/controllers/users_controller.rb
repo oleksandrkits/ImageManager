@@ -2,7 +2,7 @@ class UsersController < ApplicationController
 
   def index
     if is_admin
-      @users = User.all
+      @users = User.order_by(params[:sort_by])
     else
       redirect_to access_error_path
     end

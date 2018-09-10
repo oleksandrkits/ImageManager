@@ -19,4 +19,16 @@ class User < ApplicationRecord
   validates :about, length: { maximum: 300 }
 
   validates_associated :adress
+
+  def self.order_by(input)
+    if input == 'none'
+      all
+    elsif input == 'city'
+      # TODO: implement sorting by city
+      all
+    else
+      order(input.to_s)
+    end
+  end
+
 end
