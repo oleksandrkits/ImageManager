@@ -1,5 +1,6 @@
 class FavouritesController < ApplicationController
   before_action :set_favourite, only: [:show, :edit, :update, :destroy]
+  before_action :is_admin, only: [:index, :new, :show]
 
   # GET /favourites
   # GET /favourites.json

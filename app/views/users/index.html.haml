@@ -1,20 +1,43 @@
 .text-center
   %h1 Users
 %br/
-
 .container
-  .row
-    - @users.each do |user|
-      .col-sm-6.col-md-4.col-lg-3.col-xl-3
-        .card.border-secondary
-          .card-body
-            %h5.card-title
-              = link_to "#{user.first_name}", user
-            %h6.card-subtitle.mb-2.text-muted
-              = user.email
-            = link_to 'Edit', edit_user_path(user), class:'btn btn-primary'
-            = link_to 'Delete', user, method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-danger'
-%br/
-%br/
-.text-center
-  = link_to 'New User', new_user_path, class: 'btn btn-info'
+  .row.no-gutters
+    .col-12.col-sm-6.col-md-8.col-12.col-sm-6.col-md-8
+      .container
+        .row
+          - @users.each do |user|
+            .col-sm-6.col-md-4.col-lg-3.col-xl-3
+              .card.border-secondary
+                .card-body
+                  %h5.card-title
+                    = link_to "#{user.first_name}", user
+                  %h6.card-subtitle.mb-2.text-muted
+                    = user.email
+                  = link_to 'Edit', edit_user_path(user), class:'btn btn-primary'
+                  = link_to 'Delete', user, method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-danger'
+
+    .col-6.col-md-4.col-6.col-md-4
+      %ul
+        %li
+          User count:
+          = get_users_count
+        %li
+          Females count:
+          = get_female_count
+        %li
+          Males count:
+          = get_male_count
+        %li
+          Others count:
+          = get_other_count
+        %li
+          Average users age:
+          = get_users_average_age
+        %li
+          Youngest user:
+          = get_youngest_user
+        %li
+          Oldest user:
+          = get_oldest_user
+
