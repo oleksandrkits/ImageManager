@@ -1,13 +1,16 @@
 class UsersController < ApplicationController
-  before_action :is_admin, only: [:index]
 
   def index
-    @users = User.all
+    if is_admin
+      @users = User.all
+    else
+      redirect_to access_error_path
+    end
+
   end
 
   def show
-    id = current_user.try(:id)
-    if id == params[:id].to_i or current_user.try(:is_admin?)
+    if is_admin or is_current_user(params[:id])
       @img = Image.find(Image.ids.sample)
     else
       redirect_to access_error_path
@@ -16,13 +19,4 @@ class UsersController < ApplicationController
 
   def access_error
   end
-
-  private
-
-  def is_admin
-    unless current_user.try(:is_admin?)
-      redirect_to access_error_path
-    end
-  end
-
 end

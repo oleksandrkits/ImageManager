@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   root 'images#index'
   get '/access_error', to: 'users#access_error', as: 'access_error'
   resources :users do
-    resources :favourites
+    resources :favourites, only: [:index, :new, :create, :destroy]
   end
 
 end

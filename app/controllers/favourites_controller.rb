@@ -1,29 +1,23 @@
 class FavouritesController < ApplicationController
   before_action :set_favourite, only: [:show, :edit, :update, :destroy]
-  before_action :is_admin, only: [:index, :new, :show]
 
-  # GET /favourites
-  # GET /favourites.json
   def index
-    @favourites = User.find(params['user_id']).images
+    if is_admin or is_current_user(params[:user_id])
+      @favourites = User.find(params[:user_id]).images
+    else
+      redirect_to access_error_path
+    end
   end
 
-  # GET /favourites/1
-  # GET /favourites/1.json
-  def show
-  end
 
-  # GET /favourites/new
   def new
-    @favourite = ImagesUser.new
+    if is_admin or is_current_user(params[:user_id])
+      @favourite = ImagesUser.new
+    else
+      redirect_to access_error_path
+    end
   end
 
-  # GET /favourites/1/edit
-  def edit
-  end
-
-  # POST /favourites
-  # POST /favourites.json
   def create
     @favourite = ImagesUser.new({image_id: params[:images_user][:id], user_id: params[:user_id]})
 
@@ -38,22 +32,6 @@ class FavouritesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /favourites/1
-  # PATCH/PUT /favourites/1.json
-  def update
-    respond_to do |format|
-      if @favourite.update(favourite_params)
-        format.html { redirect_to @favourite }
-        format.json { render :show, status: :ok, location: @favourite }
-      else
-        format.html { render :edit }
-        format.json { render json: @favourite.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /favourites/1
-  # DELETE /favourites/1.json
   def destroy
     @favourite.destroy
     respond_to do |format|
@@ -63,12 +41,10 @@ class FavouritesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_favourite
       @favourite = ImagesUser.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def favourite_params
       params.fetch(:favourite, {})
     end
