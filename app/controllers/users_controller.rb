@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   include UserChecker
 
   def index
-    if is_admin
+    if admin?
       @users = User.order_by(params[:sort_by])
     else
       redirect_to access_error_path
@@ -11,7 +11,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    if is_admin or is_current_user(params[:id])
+    if admin? or is_current_user(params[:id])
       @img = Image.find(Image.ids.sample)
     else
       redirect_to access_error_path

@@ -15,7 +15,8 @@ class ImagesController < ApplicationController
   end
 
   def new
-    @image = Image.new(url: params[:url])
+    @image = Image.new
+    @url = params[:url]
   end
 
   def create

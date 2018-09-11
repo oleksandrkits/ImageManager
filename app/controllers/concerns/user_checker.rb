@@ -1,7 +1,7 @@
 module UserChecker
   extend ActiveSupport::Concern
 
-  def is_admin
+  def admin?
     current_user.try(:is_admin?)
   end
 

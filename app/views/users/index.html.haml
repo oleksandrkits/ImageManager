@@ -1,12 +1,15 @@
 = form_tag({}, {:method => :get}) do
-  = select_tag :sort_by, options_for_select({ '': '',
+  = select_tag :sort_by, options_for_select({ 'Sort': '',
                                               'None': 'none',
                                               'Age': :age,
                                               'City': :city,
                                               'First name': :first_name,
                                               'Last name': :last_name  }),
                                                :onchange => "this.form.submit();"
-
+  = select_tag :order, options_for_select({ 'Order': '',
+                                            'asc': 'asc',
+                                            'desc': 'desc'  }),
+                                             :onchange => "this.form.submit();"
 .container-fluid
   .row.flex-xl-nowrap
     .col-12.col-md-3.col-xl-2.bd-sidebar

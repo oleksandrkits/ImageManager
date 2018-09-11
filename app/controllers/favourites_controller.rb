@@ -4,7 +4,7 @@ class FavouritesController < ApplicationController
   before_action :set_favourite, only: [:show, :edit, :update, :destroy]
 
   def index
-    if is_admin or is_current_user(params[:user_id])
+    if admin? or is_current_user(params[:user_id])
       @favourites = User.find(params[:user_id]).images
     else
       redirect_to access_error_path
@@ -13,8 +13,9 @@ class FavouritesController < ApplicationController
 
 
   def new
-    if is_admin or is_current_user(params[:user_id])
+    if admin? or is_current_user(params[:user_id])
       @favourite = ImagesUser.new
+      @favourite_id = params[:id]
     else
       redirect_to access_error_path
     end
