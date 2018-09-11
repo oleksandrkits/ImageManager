@@ -1,6 +1,11 @@
-module ApplicationHelper
+module ApplicationHelperif type == 'edit'
 
   def label_helper(form, text, id)
     form.label text, class: 'col-2 col-form-label', :for => id
   end
+
+  def edit?(type)
+    type == 'edit'
+  end
+
 end

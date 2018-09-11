@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  include UserChecker
 
   def index
     if is_admin

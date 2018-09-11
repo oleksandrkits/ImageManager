@@ -33,7 +33,7 @@
     = label_helper(form, :password_confirmation, 'password-confirmation-input')
     .col-8
       = form.password_field :password_confirmation, autocomplete: 'new-password', id: 'password-confirmation-input', class: 'form-control'
-  - if type == 'edit'
+  - edit?
     .form-group.row
       = label_helper(form, :current_password, 'current-password-input')
       .col-8

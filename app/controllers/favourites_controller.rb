@@ -1,4 +1,6 @@
 class FavouritesController < ApplicationController
+  include UserChecker
+
   before_action :set_favourite, only: [:show, :edit, :update, :destroy]
 
   def index
