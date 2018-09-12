@@ -7,15 +7,7 @@ class FavouritesController < ApplicationController
     @favourites = ImagesUser.where(user_id: current_user.id)
   end
 
-
-  def new
-    @favourite = ImagesUser.new
-  end
-
   def create
-    puts '*' * 100
-    puts params
-    puts '*' * 100
     @favourite = ImagesUser.new({image_id: params[:image_id], user_id: current_user.id})
 
     respond_to do |format|

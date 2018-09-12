@@ -6,8 +6,8 @@ Rails.application.routes.draw do
                           sign_up:'register'},
              controllers: { registrations: "users/registrations"}
 
-  resources :images, only: [:index, :new, :create, :destroy]
+  resources :images, only: [:index, :create, :destroy]
   root 'images#index'
   resources :users, only: [:index, :show]
-  resources :favourites, only: [:index, :new, :create, :destroy]
+  resources :favourites, only: [:index, :create, :destroy]
 end
