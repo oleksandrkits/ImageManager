@@ -63,13 +63,13 @@
             %th{:scope => "col"} sex
             %th{:scope => "col"} age
             %th{:scope => "col"} city
-            %th{:scope => "col"} edit
-            %th{:scope => "col"} delete
+            -#%th{:scope => "col"} edit
+            -#%th{:scope => "col"} delete
         %tbody
           - @users.each do |user|
             %tr
               %th{scope: 'row'}
-                = link_to user.id, user_path(user)
+                =user.id
               %td
                 =user.first_name
               %td
@@ -82,7 +82,7 @@
                 =user.age
               %td
                 =user.adress.city
-              %td
-                -#= link_to 'Edit', edit_user_path(user), class:'btn btn-primary'
-              %td
-                -#= link_to 'Delete', user, method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-danger'
+              -#%td
+              -#  = link_to 'Edit', edit_user_registration_path(user), class:'btn btn-primary'
+              -#%td
+              -#  = link_to 'Delete', user, method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-danger'

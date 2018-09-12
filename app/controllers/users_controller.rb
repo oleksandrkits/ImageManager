@@ -35,8 +35,8 @@ class UsersController < ApplicationController
   end
 
   def show
-    if admin? or is_current_user(params[:id])
-      @img = Image.find(Image.ids.sample)
+    if admin?
+      @user = User.find(params[:id])
     else
       render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => false)
     end

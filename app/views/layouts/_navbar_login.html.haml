@@ -2,11 +2,10 @@
   - if current_user.is_a?(User)
     %li.nav-item.dropdown
       %a#navbarDropdownMenuLink.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", href: "#"}
-      = current_user.first_name
+        = current_user.first_name
       .dropdown-menu{"aria-labelledby" => "navbarDropdownMenuLink"}
-        %a.dropdown-item{href: "#"} Action
-        %a.dropdown-item{href: "#"} Another action
-        %a.dropdown-item{href: "#"} Something else here
+        = link_to 'My favourites', favourites_path, class: 'dropdown-item'
+        = link_to 'Edit profile', edit_user_registration_path, class: 'dropdown-item'
     %li.nav-item
       = link_to 'Logout', destroy_user_session_path, method: :delete, class: 'nav-link'
   - else

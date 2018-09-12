@@ -20,11 +20,11 @@ class ImagesController < ApplicationController
   end
 
   def create
-    @user = Image.new(image_params)
+    @user = Image.new(url: params[:url])
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to images_path }
+        format.html { redirect_to root_path }
       else
         format.html { render :new }
       end

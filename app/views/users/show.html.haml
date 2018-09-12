@@ -1,18 +1,41 @@
 .text-center
-  %h2
-    = "Hello, #{current_user.first_name}."
-  %h3 Here is your new image
-  = image_tag @img.url
-  %br/
-  %br/
-  = link_to 'Add to favourite', new_user_favourite_path({:id => @img.id, :user_id => current_user.id}), class: 'btn btn-outline-primary'
-  &emsp;
-  &emsp;
-  = link_to 'Get new image', user_path, class: 'btn btn-outline-primary'
-  %br/
-  %br/
-  = link_to 'Edit', edit_user_registration_path(current_user), class: 'btn btn-outline-primary'
-  &emsp;
-  = link_to 'Favourites', user_favourites_path(current_user), class: 'btn btn-outline-primary'
-  &emsp;
-  = link_to 'Back', images_path, class: 'btn btn-outline-primary'
+  %table.table
+    %thead
+      %tr
+        %th{:scope => "col"} id
+        %th{:scope => "col"} First name
+        %th{:scope => "col"} Last name
+        %th{:scope => "col"} Email
+        %th{:scope => "col"} sex
+        %th{:scope => "col"} age
+        %th{:scope => "col"} about
+        %th{:scope => "col"} city
+        %th{:scope => "col"} street
+        %th{:scope => "col"} house number
+        %th{:scope => "col"} zip
+
+    %tbody
+      %tr
+        %th{scope: 'row'}
+          =@user.id
+        %td
+          =@user.first_name
+        %td
+          =@user.last_name
+        %td
+          =@user.email
+        %td
+          =@user.sex
+        %td
+          =@user.age
+        %td
+          =@user.about
+        %td
+          =@user.adress.city
+        %td
+          =@user.adress.street
+        %td
+          =@user.adress.home_number
+        %td
+          =@user.adress.zip
+  = link_to 'Back', users_path, class: 'btn btn-outline-primary'

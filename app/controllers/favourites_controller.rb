@@ -1,36 +1,28 @@
 class FavouritesController < ApplicationController
   include UserChecker
   before_action :authenticate_user!
-  before_action :set_favourite, only: [:show, :edit, :update, :destroy]
+  before_action :set_favourite, only: [:destroy]
 
   def index
-    if admin? or is_current_user(params[:user_id])
-      @favourites = User.find(params[:user_id]).images
-    else
-      render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => false)
-    end
+    @favourites = ImagesUser.where(user_id: current_user.id)
   end
 
 
   def new
-    if admin? or is_current_user(params[:user_id])
-      @favourite = ImagesUser.new
-      @favourite_id = params[:id]
-    else
-      render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => false)
-    end
+    @favourite = ImagesUser.new
   end
 
   def create
-    @favourite = ImagesUser.new({image_id: params[:images_user][:id], user_id: params[:user_id]})
+    puts '*' * 100
+    puts params
+    puts '*' * 100
+    @favourite = ImagesUser.new({image_id: params[:image_id], user_id: current_user.id})
 
     respond_to do |format|
       if @favourite.save
-        format.html { redirect_to user_favourites_path }
-        format.json { render :show, status: :created, location: @favourite }
+        format.html { redirect_to root_path }
       else
         format.html { render :new }
-        format.json { render json: @favourite.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -38,8 +30,7 @@ class FavouritesController < ApplicationController
   def destroy
     @favourite.destroy
     respond_to do |format|
-      format.html { redirect_to user_favourites_url }
-      format.json { head :no_content }
+      format.html { redirect_to favourites_url }
     end
   end
 

@@ -4,7 +4,7 @@
   = image_tag @url, class: 'rounded mx-auto d-block'
   %br/
   .text-center
-    = link_to 'Add image', new_image_path({:url => @url}), class:'btn btn-primary'
+    = link_to 'Add image', images_path({:url => @url}), class:'btn btn-primary', method: :post
     = link_to 'Get new image', root_path, class:'btn btn-primary'
 %br/
 .container
@@ -15,4 +15,6 @@
           = image_tag image.url, class: 'card-img-top', title: image.id
           .card-body
             .text-center
-              = link_to 'Delete', image, method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-danger'
+              .row
+                = link_to 'Delete', image, method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-danger'
+                = link_to 'Favourite', favourites_path({:image_id => image.id}), class: 'btn btn-primary', method: :post
