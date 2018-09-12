@@ -6,11 +6,12 @@ class UsersController < ApplicationController
       puts '*' * 100
       puts params.keys
       puts '*' * 100
-      @users = User.all
 
+      @users = User.all
       @users = sort_users
       @users = users_filter_by_sex
       @users = users_filter_by_age
+      @users = users_filter_by_city
 
     else
       render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => false)
@@ -57,6 +58,8 @@ class UsersController < ApplicationController
       else
         @users
       end
+    else
+      @users
     end
   end
 
@@ -67,10 +70,24 @@ class UsersController < ApplicationController
       elsif params[:sort_by] == 'city'
         @users.includes(:adress).order('adresses.city')
       else
-        @users.order(input.to_s)
+        @users.order(params[:sort_by].to_s)
       end
     else
       @users
     end
   end
+
+  def users_filter_by_city
+    @cities = @users.includes(:adress).pluck(:city).uniq.unshift('')
+    if params.has_key?(:city)
+      if params[:city] == ''
+        @users
+      else
+        @users.joins(:adress).includes(:adress).where("adresses.city = ?", params[:city])
+      end
+    else
+      @users
+    end
+  end
+
 end
