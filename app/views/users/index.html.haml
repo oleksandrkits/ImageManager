@@ -1,15 +1,33 @@
-= form_tag({}, {:method => :get}) do
-  = select_tag :sort_by, options_for_select({ 'Sort': '',
-                                              'None': 'none',
+-#= form_tag({}, {:method => :get}) do
+-#  = select_tag :sort_by, options_for_select({ 'Sort': '',
+-#                                              'id': 'none',
+-#                                              'Age': :age,
+-#                                              'City': :city,
+-#                                              'First name': :first_name,
+-#                                              'Last name': :last_name  }),
+-#                                               :onchange => "this.form.submit();"
+
+= form_tag(:users, method: 'get') do
+  = label_tag :sort_by, 'Sort by'
+  = select_tag :sort_by, options_for_select({ '': '',
+                                              'id': 'none',
                                               'Age': :age,
                                               'City': :city,
                                               'First name': :first_name,
-                                              'Last name': :last_name  }),
-                                               :onchange => "this.form.submit();"
-  = select_tag :order, options_for_select({ 'Order': '',
-                                            'asc': 'asc',
-                                            'desc': 'desc'  }),
-                                             :onchange => "this.form.submit();"
+                                              'Last name': :last_name  })
+  = label_tag :male, 'Male'
+  = check_box_tag :male
+  = label_tag :female, 'Female'
+  = check_box_tag :female
+  = label_tag :other, 'Other'
+  = check_box_tag :other
+  = label_tag :age_min, 'Age min'
+  = number_field_tag :age_min
+  = label_tag :age_max, 'Age max'
+  = number_field_tag :age_max
+  = label_tag :city
+  = select_tag :city, options_for_select({'Hello': 'hola'})
+  = submit_tag 'Filter'
 .container-fluid
   .row.flex-xl-nowrap
     .col-12.col-md-3.col-xl-2.bd-sidebar

@@ -25,7 +25,7 @@ class User < ApplicationRecord
       all
     elsif input == 'city'
       # TODO: implement sorting by city
-      joins(:adresses).where('adresses.city = ?', :city)
+      includes(:adress).order('adresses.city')
     else
       order(input.to_s)
     end
