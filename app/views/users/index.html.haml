@@ -26,25 +26,25 @@
       %ul
         %li
           User count:
-          = get_users_count
+          = @user_count
         %li
           Females count:
-          = get_female_count
+          = @user_female_count
         %li
           Males count:
-          = get_male_count
+          = @user_male_count
         %li
           Others count:
-          = get_other_count
+          = @user_other_count
         %li
           Average users age:
-          = get_users_average_age
+          = @users_average_age
         %li
           Youngest user:
-          = get_youngest_user
+          = @youngest_user
         %li
           Oldest user:
-          = get_oldest_user
+          = @oldest_user
     .col-12.col-sm-6.col-md-8.col-12.col-sm-6.col-md-8
       %h1.bd-title Users
       %table.table
