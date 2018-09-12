@@ -5,7 +5,7 @@ class UsersController < ApplicationController
     if admin?
       @users = User.order_by(params[:sort_by])
     else
-      redirect_to access_error_path
+      render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => false)
     end
 
   end
@@ -14,7 +14,7 @@ class UsersController < ApplicationController
     if admin? or is_current_user(params[:id])
       @img = Image.find(Image.ids.sample)
     else
-      redirect_to access_error_path
+      render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => false)
     end
   end
 

@@ -7,7 +7,7 @@ class FavouritesController < ApplicationController
     if admin? or is_current_user(params[:user_id])
       @favourites = User.find(params[:user_id]).images
     else
-      redirect_to access_error_path
+      render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => false)
     end
   end
 
@@ -17,7 +17,7 @@ class FavouritesController < ApplicationController
       @favourite = ImagesUser.new
       @favourite_id = params[:id]
     else
-      redirect_to access_error_path
+      render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => false)
     end
   end
 
