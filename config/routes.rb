@@ -8,7 +8,6 @@ Rails.application.routes.draw do
 
   resources :images, only: [:index, :new, :create, :destroy]
   root 'images#index'
-  get '/access_error', to: 'users#access_error', as: 'access_error'
   resources :users do
     resources :favourites, only: [:index, :new, :create, :destroy]
   end

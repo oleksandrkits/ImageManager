@@ -20,15 +20,4 @@ class User < ApplicationRecord
 
   validates_associated :adress
 
-  def self.order_by(input)
-    if input == 'none'
-      all
-    elsif input == 'city'
-      # TODO: implement sorting by city
-      includes(:adress).order('adresses.city')
-    else
-      order(input.to_s)
-    end
-  end
-
 end
