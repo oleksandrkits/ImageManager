@@ -1,25 +1,31 @@
-= form_tag(:users, method: 'get') do
-  = label_tag :sort_by, 'Sort by'
-  = select_tag :sort_by, options_for_select({ '': '',
+= form_for :filters, url: users_path, method: 'get' do |filter_form|
+  = filter_form.label :sort_by, 'Sort by'
+  = filter_form.select :sort_by, options_for_select({ '': '',
                                               'id': 'none',
                                               'Age': :age,
                                               'City': :city,
                                               'First name': :first_name,
-                                              'Last name': :last_name  })
-  = label_tag :male, 'Male'
-  = check_box_tag :male
-  = label_tag :female, 'Female'
-  = check_box_tag :female
-  = label_tag :other, 'Other'
-  = check_box_tag :other
-  = label_tag :age_min, 'Age min'
-  = number_field_tag :age_min
-  = label_tag :age_max, 'Age max'
-  = number_field_tag :age_max
-  = label_tag :city
-  = select_tag :city, options_for_select(@cities)
-
-  = submit_tag 'Filter'
+                                              'Last name': :last_name  }, @sort_by)
+  %br/
+  = filter_form.label :male, 'Male'
+  = filter_form.check_box :sex, {:multiple => true, checked: @sex_filter.include?('male')}, 'male', nil
+  %br/
+  = filter_form.label :female, 'Female'
+  = filter_form.check_box :sex, {:multiple => true, checked: @sex_filter.include?('female')}, 'female', nil
+  %br/
+  = filter_form.label :other, 'Other'
+  = filter_form.check_box :sex, {:multiple => true, checked: @sex_filter.include?('other')}, 'other', nil
+  %br/
+  = filter_form.label :age_min, 'Age min'
+  = filter_form.number_field :age_min, value: @min_age_filter
+  = filter_form.label :age_max, 'Age max'
+  = filter_form.number_field :age_max, value: @max_age_filter
+  %br/
+  = filter_form.label :city
+  = filter_form.select :city, options_for_select(@cities, @city_filter)
+  %br/
+  = filter_form.submit 'Filter'
+= link_to 'Reset filters', users_path
 .container-fluid
   .row.flex-xl-nowrap
     .col-12.col-md-3.col-xl-2.bd-sidebar
@@ -77,6 +83,6 @@
               %td
                 =user.adress.city
               %td
-                = link_to 'Edit', edit_user_path(user), class:'btn btn-primary'
+                -#= link_to 'Edit', edit_user_path(user), class:'btn btn-primary'
               %td
-                = link_to 'Delete', user, method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-danger'
+                -#= link_to 'Delete', user, method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-danger'

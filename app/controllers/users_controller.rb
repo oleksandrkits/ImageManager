@@ -8,6 +8,12 @@ class UsersController < ApplicationController
       puts params.keys
       puts '*' * 100
 
+      @sex_filter = params[:filters].try(:[], :sex) || []
+      @min_age_filter = params[:filters].try(:[], :age_min) || []
+      @max_age_filter = params[:filters].try(:[], :age_max) || []
+      @sort_by = params[:filters].try(:[], :sort_by) || []
+      @city_filter = params[:filters].try(:[], :city) || []
+
       @users = User.all
       @users = sort_users
       @users = users_filter_by_sex
@@ -39,64 +45,34 @@ class UsersController < ApplicationController
   private
 
   def users_filter_by_sex
-    if params.has_key?(:male) and params.has_key?(:female)
-      @users.where.not(sex: 'other')
-    elsif params.has_key?(:female) and params.has_key?(:other)
-      @users.where.not(sex: 'male')
-    elsif params.has_key?(:other) and params.has_key?(:male)
-      @users.where.not(sex: 'female')
-    elsif params.has_key?(:other)
-      @users.where(sex: 'other')
-    elsif params.has_key?(:female)
-      @users.where(sex: 'female')
-    elsif params.has_key?(:male)
-      @users.where(sex: 'male')
-    else
-      @users
-    end
+    return @users if @sex_filter.blank?
+    @users.where(sex: @sex_filter)
   end
 
   def users_filter_by_age
-    if params.has_key?(:age_min) or params.has_key?(:age_max)
-      if (params[:age_min] != '') and (params[:age_max] != '')
-        @users.where("age >= #{params[:age_min]} AND age <= #{params[:age_max]}")
-      elsif params[:age_min] != ''
-        @users.where("age >= #{params[:age_min]}")
-      elsif params[:age_max] != ''
-        @users.where("age <= #{params[:age_max]}")
-      else
-        @users
-      end
+    return @users if (@max_age_filter.blank? and @min_age_filter.blank?)
+    if @max_age_filter.blank?
+      @users.where("age >= #{@min_age_filter}")
+    elsif @min_age_filter.blank?
+      @users.where("age <= #{@max_age_filter}")
     else
-      @users
+      @users.where("age >= #{@min_age_filter} AND age <= #{@max_age_filter}")
     end
   end
 
   def sort_users
-    if params.has_key?(:sort_by)
-      if params[:sort_by] == 'none' or params[:sort_by] == ''
-        @users.all
-      elsif params[:sort_by] == 'city'
+     return @users if (@sort_by.blank? or @sort_by == 'none')
+      if @sort_by == 'city'
         @users.includes(:adress).order('adresses.city')
       else
-        @users.order(params[:sort_by].to_s)
+        @users.order(@sort_by.to_s)
       end
-    else
-      @users
-    end
   end
 
   def users_filter_by_city
     @cities = @users.includes(:adress).pluck(:city).uniq.unshift('')
-    if params.has_key?(:city)
-      if params[:city] == ''
-        @users
-      else
-        @users.joins(:adress).includes(:adress).where("adresses.city = ?", params[:city])
-      end
-    else
-      @users
-    end
+    return @users if (@city_filter.blank?)
+    @users.joins(:adress).includes(:adress).where("adresses.city = ?", @city_filter)
   end
 
   def get_users_count
