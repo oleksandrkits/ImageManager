@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   include UserChecker
+  before_action :authenticate_user!
 
   def index
     if admin?
@@ -20,6 +21,7 @@ class UsersController < ApplicationController
       @users_average_age = get_users_average_age
       @youngest_user = get_youngest_user
       @oldest_user = get_oldest_user
+
     else
       render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => false)
     end
@@ -124,6 +126,5 @@ class UsersController < ApplicationController
   def get_other_count
     User.where(sex: 'other').count
   end
-
 
 end
