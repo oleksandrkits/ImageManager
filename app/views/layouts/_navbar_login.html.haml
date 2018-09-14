@@ -1,5 +1,5 @@
 %ul.navbar-nav.navbar-right
-  - if current_user.is_a?(User)
+  - if current_user
     %li.nav-item.dropdown
       %a#navbarDropdownMenuLink.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", href: "#"}
         = current_user.first_name
