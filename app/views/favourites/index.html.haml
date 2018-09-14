@@ -7,12 +7,10 @@
     - @favourites.each do |favourite|
       .col-sm-6.col-md-4.col-lg-3.col-xl-3
         .card.border-secondary
-          = image_tag favourite.url, class: 'card-img-top', title: favourite.id
+          = image_tag favourite.image.url, class: 'card-img-top', title: favourite.id
           .card-body
             .text-center
-              = link_to 'Delete', favourite, method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-danger'
+              = link_to 'Delete', favourite_path(favourite.id), method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-danger'
 
 .text-center
-  = link_to 'New Favourite', new_user_favourite_path, class: 'btn btn-outline-primary'
-  &emsp;
-  = link_to 'Back', user_path(request["user_id"]), class: 'btn btn-outline-primary'
+  = link_to 'Back', root_path, class: 'btn btn-outline-primary'

@@ -1,92 +1,98 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   def index
-    @users = User.all
-  end
+    if admin?
 
-  def new
-    @user = User.new
-    @adress = Adress.new
-  end
+      @sex_filter = params[:filters].try(:[], :sex) || []
+      @min_age_filter = params[:filters].try(:[], :age_min) || []
+      @max_age_filter = params[:filters].try(:[], :age_max) || []
+      @sort_by = params[:filters].try(:[], :sort_by) || []
+      @city_filter = params[:filters].try(:[], :city) || []
 
-  def edit
+      @users = User.all
+      @users = sort_users
+      @users = users_filter_by_sex
+      @users = users_filter_by_age
+      @users = users_filter_by_city
+
+      @user_count = get_users_count
+      @user_female_count = get_sex_count('female')
+      @user_male_count = get_sex_count('male')
+      @user_other_count = get_sex_count('other')
+      @users_average_age = get_users_average_age
+      @youngest_user = get_youngest_user
+      @oldest_user = get_oldest_user
+
+    else
+      render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => false)
+    end
+
   end
 
   def show
-    @img = Image.find(Image.ids.sample)
-  end
-
-  def create
-    @adress = Adress.new(adress_params)
-    @user = User.new(user_params)
-    @user.adress = @adress
-
-    respond_to do |format|
-      if @user.save
-        format.html { redirect_to @user }
-        format.json { render :show, status: :created, location: @user }
-      else
-        format.html { render :new }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  def update
-    if @user.adress.nil?
-      @adress = Adress.new(adress_params)
-      @user.adress = @adress
+    if admin?
+      @user = User.find(params[:id])
     else
-      @adress = @user.adress
-      @adress.update(adress_params)
-    end
-    respond_to do |format|
-      if @user.update(user_params)
-        format.html { redirect_to @user }
-        format.json { render :show, status: :ok, location: @user }
-      else
-        format.html { render :edit }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  def destroy
-    @user.adress.destroy
-    @user.destroy
-    respond_to do |format|
-      format.html { redirect_to users_url }
-      format.json { head :no_content }
+      render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => false)
     end
   end
 
   private
-  def set_user
-    @user = User.find(params[:id])
+
+  def users_filter_by_sex
+    return @users if @sex_filter.blank?
+    @users.where(sex: @sex_filter)
   end
 
-  def user_params
-    params.require(:user).permit(:first_name,
-                                 :last_name,
-                                 :email,
-                                 :age,
-                                 :sex,
-                                 :about,
-                                 adress_atributes: [:city,
-                                                    :street,
-                                                    :home_number,
-                                                    :zip
-                                                   ]
-                                )
+  def users_filter_by_age
+    if @max_age_filter.present? and @min_age_filter.present?
+      @users.where("age >= #{@min_age_filter} AND age <= #{@max_age_filter}")
+    elsif @min_age_filter.present?
+      @users.where("age >= #{@min_age_filter}")
+    elsif @max_age_filter.present?
+      @users.where("age <= #{@max_age_filter}")
+    else
+      @users
+    end
   end
 
-  def adress_params
-    params.require(:adress).permit(:city,
-                                   :street,
-                                   :home_number,
-                                   :zip
-                                  )
+  def sort_users
+     return @users if (@sort_by.blank? or @sort_by == 'none')
+      if @sort_by == 'city'
+        @users.includes(:adress).order('adresses.city')
+      else
+        @users.order(@sort_by.to_s)
+      end
   end
 
+  def users_filter_by_city
+    @cities = @users.includes(:adress).pluck(:city).uniq.unshift('')
+    return @users if (@city_filter.blank?)
+    @users.joins(:adress).where("adresses.city = ?", @city_filter)
+  end
+
+  def get_users_count
+    User.count
+  end
+
+  def get_users_average_age
+    User.average(:age)
+  end
+
+  def get_youngest_user
+    User.minimum(:age)
+  end
+
+  def get_oldest_user
+    User.maximum(:age)
+  end
+
+  def get_sex_count(sex)
+    User.where(sex: sex).count
+  end
+
+  def admin?
+    current_user.try(:is_admin?)
+  end
 end

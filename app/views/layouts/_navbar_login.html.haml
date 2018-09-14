@@ -1,0 +1,15 @@
+%ul.navbar-nav.navbar-right
+  - if current_user
+    %li.nav-item.dropdown
+      %a#navbarDropdownMenuLink.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", href: "#"}
+        = current_user.first_name
+      .dropdown-menu{"aria-labelledby" => "navbarDropdownMenuLink"}
+        = link_to 'My favourites', favourites_path, class: 'dropdown-item'
+        = link_to 'Edit profile', edit_user_registration_path, class: 'dropdown-item'
+    %li.nav-item
+      = link_to 'Logout', destroy_user_session_path, method: :delete, class: 'nav-link'
+  - else
+    %li.nav-item
+      = link_to 'Register', new_user_registration_path, class: 'nav-link'
+    %li.nav-item
+      = link_to 'Login', new_user_session_path, class: 'nav-link'

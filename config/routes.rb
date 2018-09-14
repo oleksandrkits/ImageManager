@@ -1,9 +1,13 @@
 Rails.application.routes.draw do
-  resources :images, only: [:index, :new, :create, :destroy]
+  devise_for :users,
+             path: '',
+             path_names: {sign_in:'login',
+                          sign_out:'logout',
+                          sign_up:'register'},
+             controllers: { registrations: "users/registrations"}
+
+  resources :images, only: [:index, :create, :destroy]
   root 'images#index'
-
-  resources :users do
-    resources :favourites
-  end
-
+  resources :users, only: [:index, :show]
+  resources :favourites, only: [:index, :create, :destroy]
 end

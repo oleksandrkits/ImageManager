@@ -28,7 +28,7 @@
     = label_helper(form, :about, 'about-text-area')
     .col-8
       = form.text_area :about, class: 'form-control', id: 'about-text-area', size:'1x3', placeholder: 'about'
-  = fields_for :adress, user.adress do |address|
+  = form.fields_for :adress, @user.adress do |address|
     .form-group.row
       = label_helper(address, :city, 'city-input')
       .col-8
@@ -45,6 +45,15 @@
       = label_helper(address, :zip, 'zip-input')
       .col-8
         = address.text_field :zip, class: 'form-control', id: 'zip-input', placeholder: 'ZIP'
+    .form-group.row
+      = label_helper(form, :password, 'password-input')
+      .col-8
+        = form.password_field :password, autocomplete: 'new-password', id: 'password-input', class: 'form-control'
+    .form-group.row
+      = label_helper(form, :password_confirmation, 'password-confirmation-input')
+      .col-8
+        = form.password_field :password_confirmation, autocomplete: 'new-password', id: 'password-confirmation-input', class: 'form-control'
+
   .actions
     = form.submit 'Submit', class: 'btn btn-primary'
 

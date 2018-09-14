@@ -1,0 +1,17 @@
+= form.fields_for :adress do |address|
+  .form-group.row
+    = label_helper(address, :city, 'city-input')
+    .col-8
+      = address.text_field :city, class: 'form-control', id: 'city-input', placeholder: 'city'
+  .form-group.row
+    = label_helper(address, :street, 'street-input')
+    .col-8
+      = address.text_field :street, class: 'form-control', id: 'street-input', placeholder: 'street'
+  .form-group.row
+    = label_helper(address, :home_number, 'home-number-input')
+    .col-8
+      = address.text_field :home_number, class: 'form-control', id: 'home-number-input', placeholder: 'home number'
+  .form-group.row
+    = label_helper(address, :zip, 'zip-input')
+    .col-8
+      = address.text_field :zip, class: 'form-control', id: 'zip-input', placeholder: 'ZIP'
