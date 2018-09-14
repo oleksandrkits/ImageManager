@@ -3,7 +3,7 @@
     %h2 Here is your new image
   = image_tag @url, class: 'rounded mx-auto d-block'
   %br/
-  - if current_user.is_a?(User)
+  - if current_user
     .text-center
       = link_to 'Add image', images_path({:url => @url}), class:'btn btn-primary', method: :post
       = link_to 'Get new image', root_path, class:'btn btn-primary'
@@ -15,7 +15,7 @@
         .card.border-secondary
           = image_tag image.url, class: 'card-img-top', title: image.id
           .card-body
-            - if current_user.is_a?(User)
+            - if current_user
               .text-center
                 .row
                   = link_to 'Delete', image, method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-danger'

@@ -15,7 +15,7 @@
   .form-group.row
     = label_helper(form, :sex, 'sex-select')
     .col-8
-      = form.select :sex, options_for_select(%w(male female other), 'male'), {}, { :class => 'form-control', :id => 'sex-select'}
+      = form.select :sex, options_for_select(User::AVAILABLE_SEX, User::AVAILABLE_SEX.first), {}, { :class => 'form-control', :id => 'sex-select'}
   .form-group.row
     = label_helper(form, :age, 'age-input')
     .col-8
@@ -33,7 +33,7 @@
     = label_helper(form, :password_confirmation, 'password-confirmation-input')
     .col-8
       = form.password_field :password_confirmation, autocomplete: 'new-password', id: 'password-confirmation-input', class: 'form-control'
-  - if edit?(type)
+  - if resource.persisted?
     .form-group.row
       = label_helper(form, :current_password, 'current-password-input')
       .col-8

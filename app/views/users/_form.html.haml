@@ -28,8 +28,6 @@
     = label_helper(form, :about, 'about-text-area')
     .col-8
       = form.text_area :about, class: 'form-control', id: 'about-text-area', size:'1x3', placeholder: 'about'
-  = puts '*' *100
-  = puts @user.adress
   = form.fields_for :adress, @user.adress do |address|
     .form-group.row
       = label_helper(address, :city, 'city-input')

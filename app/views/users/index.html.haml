@@ -6,16 +6,13 @@
                                               'City': :city,
                                               'First name': :first_name,
                                               'Last name': :last_name  }, @sort_by)
-  %br/
-  = filter_form.label :male, 'Male'
-  = filter_form.check_box :sex, {:multiple => true, checked: @sex_filter.include?('male')}, 'male', nil
-  %br/
-  = filter_form.label :female, 'Female'
-  = filter_form.check_box :sex, {:multiple => true, checked: @sex_filter.include?('female')}, 'female', nil
-  %br/
-  = filter_form.label :other, 'Other'
-  = filter_form.check_box :sex, {:multiple => true, checked: @sex_filter.include?('other')}, 'other', nil
-  %br/
+  - User::AVAILABLE_SEX.each do |sex|
+    %br/
+    = filter_form.label :male, sex.humanize
+    = filter_form.check_box :sex, {:multiple => true, checked: @sex_filter.include?(sex)}, sex, nil
+    %br/
+
+
   = filter_form.label :age_min, 'Age min'
   = filter_form.number_field :age_min, value: @min_age_filter
   = filter_form.label :age_max, 'Age max'
